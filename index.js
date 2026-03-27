@@ -28,7 +28,7 @@ startServer()
 // It should have name, cost, and at least 2 more attributes of your choice
 // You need at least 1 required, 1 unique, and 1 default that makes sense
 const menuSchema = new mongoose.Schema({
-  name: {type: String, required: true},
+  name: {type: String, required: true, unique: true},
   cost: {type: Number, required: true}, 
   glutenFree:{type: Boolean, required: true, default: true},
   isAvalible:{type: Boolean, required: true}
