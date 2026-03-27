@@ -43,10 +43,10 @@ const Menu = mongoose.model("Menu", menuSchema, "Menus")
 // Test this route from Postman (make public!) and make sure your test item is in the DB
 app.post("/menu/test", async (req, res)=> {
   const newMenu = await new Menu({
-    name: "Pizza",
-    cost: 67,
-    gluetenFree: false,
-    isAvaliable: true
+    name: req.body.name,
+    cost: req.body.cost,
+    gluetenFree: req.body.glutenFree,
+    isAvalible: req.body.isAvalible
   }).save()
   res.json(newMenu)
 })
@@ -61,7 +61,7 @@ app.get("/menu", async (req,res)=>{
 
 // Task 6: Define a GET route at /menu/value that returns only menu items that cost less than 5 [2 pts]
 app.get("/menu/value", async (req,res)=>{
-  const menus = await Menu.find({cost: false})
+  const menus = await Menu.find({cost:{$lt:5}})
   res.json(menus)
 })
 
@@ -69,5 +69,14 @@ app.get("/menu/value", async (req,res)=>{
 // Task 7: Define a POST route at /menu/new that adds a new menu item [2 pts]
 // The values for the menu item should come from the request body
 // Test this route from Postman (make public!) and make sure the user's item is in the DB
+app.post("/menu/new", async(req, res)=>{
+  const newMenu = await new Menu ({
+    name: req.body.name,
+    cost: req.body.cost,
+    glutenFree: req.body.gluetenFree,
+    isAvalible: req.body.isAvalible
+  }).save()
 
+  res.json(newMenu)
+})
 
